@@ -1,6 +1,8 @@
-package com.yangyongwen.zhihudailypaper.Network;
+package com.yangyongwen.zhihudailypaper.network;
 
 import android.content.Context;
+
+import com.android.volley.RequestQueue;
 
 /**
  * Created by samsung on 2016/2/3.
@@ -28,14 +30,34 @@ public class NetworkRequestProxy implements NetworkRequest{
 
     }
 
-
+    @Override
     public  void requestLatestStory(RequestCallback callback){
+
+    }
+    @Override
+    public  void requestThemeList(RequestCallback callback){
+
+    }
+
+    @Override
+    public  void requestDailyStory(String date,RequestCallback callback){
+
+    }
+    @Override
+    public void requestStoryDetail(String storyId,RequestCallback callback){
+
+    }
+    @Override
+    public void requestStoryExtraInfo(String storyId,RequestCallback callback){
 
     }
 
 
-    public  void requestDailyStory(String date,RequestCallback callback){
 
+    //给ThemeDataProvider使用，后面要删除，，，
+
+    public static RequestQueue getQueue(){
+        return ((VolleyRequest)mInstance).getQueue();
     }
 
 

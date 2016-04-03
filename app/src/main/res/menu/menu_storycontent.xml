@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".storycontent.StoryContentActivity">
+
+    <item android:id="@+id/action_share"
+        android:title="share"
+        android:icon="@drawable/share"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_collect"
+        android:title="collect"
+        android:icon="@drawable/collect"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/action_comment"
+        android:title="comment"
+        android:icon="@drawable/comment"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_comment" />
+
+    <item android:id="@+id/action_praise"
+        android:title="praise"
+        android:icon="@drawable/praise"
+        app:showAsAction="always"
+        app:actionLayout="@layout/action_praise" />
+
+
+</menu>

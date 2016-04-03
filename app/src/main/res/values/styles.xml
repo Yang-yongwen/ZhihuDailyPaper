@@ -5,4 +5,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Zhihu_light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <!--<item name="android:windowActionBar">@color/theme_light_primary</item>-->
+        <!--<item name="android:statusBarColor">@color/theme_light_primary_dark</item>-->
+        <!--<item name="android:textColor">@color/theme_light_text_primary_color</item>-->
+    </style>
+
+
+
 </resources>

@@ -1,9 +1,7 @@
-package com.yangyongwen.zhihudailypaper.Provider;
+package com.yangyongwen.zhihudailypaper.provider;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by samsung on 2016/2/3.

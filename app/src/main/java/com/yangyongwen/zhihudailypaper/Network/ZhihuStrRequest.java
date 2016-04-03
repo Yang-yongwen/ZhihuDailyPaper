@@ -1,16 +1,9 @@
-package com.yangyongwen.zhihudailypaper.Network;
-
-import android.util.Log;
+package com.yangyongwen.zhihudailypaper.network;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
-import com.yangyongwen.zhihudailypaper.Utils.LogUtils;
-
-import org.apache.http.protocol.HTTP;
-
-import java.io.UnsupportedEncodingException;
+import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 /**
  * Created by yangyongwen on 16/2/6.
@@ -51,15 +44,15 @@ public class ZhihuStrRequest extends StringRequest {
         * 返回数据字符集为null,而HttpHeaderParser.parseCharset默认返回"ISO-8859-1"
         * */
         try {
-            String type = response.headers.get(HTTP.CONTENT_TYPE);
+            String type = response.headers.get("Content-Type");
             if (type == null) {
                 LogUtils.LOGD(TAG,"type is null");
-                type = "utf-8";
-                response.headers.put(HTTP.CONTENT_TYPE, type);
+                type = "application/json;charset=UTF-8";
+                response.headers.put("Content-Type", type);
             } else if (!type.contains("UTF-8")) {
                 LogUtils.LOGD(TAG,"type is not null,but not contain UTF-8");
-                type += ";" + "utf-8";
-                response.headers.put(HTTP.CONTENT_TYPE, type);
+                type += ";" + "charset=UTF-8";
+                response.headers.put("Content-Type", type);
             }
         } catch (Exception e) {
             //print stacktrace e.g.

@@ -1,4 +1,4 @@
-package com.yangyongwen.zhihudailypaper.Provider;
+package com.yangyongwen.zhihudailypaper.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
-import com.yangyongwen.zhihudailypaper.Utils.LogUtils;
+import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 /**
  * Created by samsung on 2016/2/2.
@@ -24,14 +24,15 @@ public class ZhihuContentProvider extends ContentProvider{
     public static final Uri STORY_THEME_CONTENT_URI=Uri.parse("content://"+AUTHORITY+"/"+ZhihuContract.TableStoryTheme.TABLE_NAME);
     public static final Uri STORY_THEME_DETAIL_CONTENT_URI=Uri.parse("content://"+AUTHORITY+"/"+ZhihuContract.TableStoryThemeDetail.TABLE_NAME);
     public static final Uri STORY_TOP_STORY_CONTENT_URI=Uri.parse("content://"+AUTHORITY+"/"+ZhihuContract.TableTopStory.TABLE_NAME);
+    public static final Uri STORY_EXTRA_INFO_CONTENT_URI=Uri.parse("content://"+AUTHORITY+"/"+ZhihuContract.TableStoryExtraInfo.TABLE_NAME);
 
 
-
-    public static final int STORY_URI_CODE=0;
-    public static final int STORY_DETAIL_URI_CODE=1;
-    public static final int STORY_THEME_URI_CODE=2;
-    public static final int STORY_THEME_DETAIL_URI_CODE=3;
-    public static final int TOP_STORY__URI_CODE=4;
+    private static final int STORY_URI_CODE=0;
+    private static final int STORY_DETAIL_URI_CODE=1;
+    private static final int STORY_THEME_URI_CODE=2;
+    private static final int STORY_THEME_DETAIL_URI_CODE=3;
+    private static final int TOP_STORY__URI_CODE=4;
+    private static final int STORY_EXTRA_INFO_URI_CODE=5;
 
 
 
@@ -43,6 +44,7 @@ public class ZhihuContentProvider extends ContentProvider{
         mUriMatcher.addURI(AUTHORITY,ZhihuContract.TableStoryTheme.TABLE_NAME,STORY_THEME_URI_CODE);
         mUriMatcher.addURI(AUTHORITY,ZhihuContract.TableStoryThemeDetail.TABLE_NAME,STORY_THEME_DETAIL_URI_CODE);
         mUriMatcher.addURI(AUTHORITY,ZhihuContract.TableTopStory.TABLE_NAME,TOP_STORY__URI_CODE);
+        mUriMatcher.addURI(AUTHORITY,ZhihuContract.TableStoryExtraInfo.TABLE_NAME,STORY_EXTRA_INFO_URI_CODE);
     }
 
 
@@ -171,6 +173,10 @@ public class ZhihuContentProvider extends ContentProvider{
                 break;
             case TOP_STORY__URI_CODE:
                 table=ZhihuContract.TableTopStory.TABLE_NAME;
+                break;
+            case STORY_EXTRA_INFO_URI_CODE:
+                table=ZhihuContract.TableStoryExtraInfo.TABLE_NAME;
+                break;
             default:
                 break;
         }

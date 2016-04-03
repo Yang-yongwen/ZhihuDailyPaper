@@ -1,0 +1,33 @@
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/white_background"-->
+    <!--tools:context="com.yangyongwen.zhihudailypaper.themeList.ThemeListFragment">-->
+
+    <!-- TODO: Update blank fragment layout -->
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swiperefresh"
+    android:background="@color/white_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/theme_list_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+    </android.support.v7.widget.RecyclerView>
+
+
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+
+
+
+
+<!--</FrameLayout>-->

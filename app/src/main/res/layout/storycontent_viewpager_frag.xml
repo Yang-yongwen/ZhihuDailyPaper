@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <WebView
+        android:id="@+id/story_content_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.yangyongwen.zhihudailypaper.ui.AspectRatioView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:aspectRatio="1.8">
+
+            <ImageView
+                android:id="@+id/story_icon"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/story_title"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/story_icon_resource"
+                android:textSize="14sp"
+                android:textColor="#E0E0E0"
+                android:layout_gravity="bottom|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.yangyongwen.zhihudailypaper.ui.AspectRatioView>
+
+
+    </WebView>
+
+
+
+</FrameLayout>

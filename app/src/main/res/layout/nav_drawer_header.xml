@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.yangyongwen.zhihudailypaper.ui.AspectRatioView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:background="#3399ff"
+    app:aspectRatio="2.7">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingBottom="12dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/account_avatar"
+            android:layout_height="32dp"
+            android:layout_width="32dp"
+            android:src="@drawable/account_avatar"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            app:riv_oval="true" />
+
+
+        <TextView
+            android:id="@+id/login"
+            android:text="请登录"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:layout_toRightOf="@+id/account_avatar"
+            android:paddingLeft="15dp"
+            android:layout_alignTop="@+id/account_avatar"
+            android:layout_alignBottom="@+id/account_avatar"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/collect_icon"
+            android:src="@drawable/collect"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitCenter"
+            android:layout_alignLeft="@+id/account_avatar"
+            android:layout_alignRight="@+id/account_avatar"
+            />
+        <TextView
+            android:id="@+id/collect"
+            android:text="我的收藏"
+            android:textColor="#ffffff"
+            android:layout_alignBottom="@+id/collect_icon"
+            android:layout_alignTop="@+id/collect_icon"
+            android:paddingLeft="15dp"
+            android:layout_alignLeft="@+id/login"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:id="@+id/download_icon"
+            android:src="@drawable/download"
+            android:layout_alignTop="@+id/collect_icon"
+            android:layout_alignBottom="@+id/collect_icon"
+            android:layout_toRightOf="@+id/collect"
+            android:paddingLeft="45dp"
+            android:scaleType="centerCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/download"
+            android:text="离线下载"
+            android:textColor="#ffffff"
+            android:layout_toRightOf="@+id/download_icon"
+            android:paddingLeft="17dp"
+            android:layout_alignTop="@+id/download_icon"
+            android:layout_alignBottom="@+id/download_icon"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
+
+
+</com.yangyongwen.zhihudailypaper.ui.AspectRatioView>
+

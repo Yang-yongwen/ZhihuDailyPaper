@@ -1,4 +1,4 @@
-package com.yangyongwen.zhihudailypaper.Utils;
+package com.yangyongwen.zhihudailypaper.utils;
 
 import android.util.Log;
 

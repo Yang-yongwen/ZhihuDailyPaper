@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yangyongwen.zhihudailypaper.ui.AspectRatioView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topstory"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:aspectRatio="1.6">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/topstory_viewpager"
+        android:clickable="false"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    </android.support.v4.view.ViewPager>
+    
+    <com.yangyongwen.zhihudailypaper.ui.CircleIndicator
+        android:id="@+id/topstory_indicator"
+        android:visibility="gone"
+        android:clickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="13dp"
+        app:ci_margin="3dp"
+        app:ci_radius="3dp"
+        app:ci_gravity="center"
+        app:ci_mode="outside"
+        app:ci_selected_background="#FFFFFF"
+        app:ci_background="#C0C0C0"/>
+
+
+</com.yangyongwen.zhihudailypaper.ui.AspectRatioView>

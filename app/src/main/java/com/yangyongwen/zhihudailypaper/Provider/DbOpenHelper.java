@@ -1,10 +1,10 @@
-package com.yangyongwen.zhihudailypaper.Provider;
+package com.yangyongwen.zhihudailypaper.provider;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.yangyongwen.zhihudailypaper.Utils.LogUtils;
+import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 /**
  * Created by samsung on 2016/2/2.
@@ -34,6 +34,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
         ZhihuContract.createStoryThemeTable(db);
         ZhihuContract.createStoryThemeDetailTable(db);
         ZhihuContract.createTopStoryTable(db);
+        ZhihuContract.createStoryExtraInfoTable(db);
 
         db.setTransactionSuccessful();
         db.endTransaction();

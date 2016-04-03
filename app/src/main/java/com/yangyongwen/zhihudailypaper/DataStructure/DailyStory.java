@@ -1,4 +1,4 @@
-package com.yangyongwen.zhihudailypaper.DataStructure;
+package com.yangyongwen.zhihudailypaper.dataStructure;
 
 /**
  * Created by yangyongwen on 16/2/6.

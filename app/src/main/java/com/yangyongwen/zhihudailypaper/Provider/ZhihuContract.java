@@ -1,10 +1,9 @@
-package com.yangyongwen.zhihudailypaper.Provider;
+package com.yangyongwen.zhihudailypaper.provider;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.yangyongwen.zhihudailypaper.Utils.LogUtils;
+import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 /**
  * Created by samsung on 2016/2/2.
@@ -41,7 +40,7 @@ public class ZhihuContract {
             TableStory.COLUMN_NAME_TITLE+" TEXT,"+
             TableStory.COLUMN_NAME_MULTIPIC+" INTEGER, "+
             TableStory.COLUMN_NAME_ISREAD+" INTEGER, "+
-            TableStory.COLUMN_NAME_THEME_ID+" INTEGER " +
+            TableStory.COLUMN_NAME_THEME_ID+" INTEGER, " +
             TableStory.COLUMN_NAME_THEME_NAME+" TEXT "+")";
     
     
@@ -126,6 +125,7 @@ public class ZhihuContract {
         public static final String COLUMN_NAME_DESCRIPTION="description";
         public static final String COLUMN_NAME_THUMBNAIL="thumbnail";
         public static final String COLUMN_NAME_COLOR="color";
+        public static final String COLUMN_NAME_ISSUBCRIBED="issubcribed";
     }
 
     public static final String SQL_CREATE_STORY_THEME_TABLE="CREATE TABLE "+
@@ -134,8 +134,9 @@ public class ZhihuContract {
             TableStoryTheme.COLUMN_NAME_THEME_ID+" INTEGER UNIQUE,"+
             TableStoryTheme.COLUMN_NAME_THEME_NAME+" TEXT,"+
             TableStoryTheme.COLUMN_NAME_DESCRIPTION+" TEXT,"+
-            TableStoryTheme.COLUMN_NAME_THUMBNAIL+" TEXT"+
-            TableStoryTheme.COLUMN_NAME_COLOR+" INTEGER"+" )";
+            TableStoryTheme.COLUMN_NAME_THUMBNAIL+" TEXT,"+
+            TableStoryTheme.COLUMN_NAME_COLOR+" INTEGER," +
+            TableStoryTheme.COLUMN_NAME_ISSUBCRIBED+" INTEGER"+" )";
 
     public static void createStoryThemeTable(SQLiteDatabase db){
         db.execSQL(SQL_CREATE_STORY_THEME_TABLE);
@@ -167,6 +168,7 @@ public class ZhihuContract {
         public static final String COLUMN_NAME_BACKGROUND="background";
         public static final String COLUMN_NAME_IMAGE="image";
         public static final String COLUMN_NAME_IMAGE_SOURCE="image_source";
+        public static final String COLUMN_NAME_ISSUBCRIBED="issubcribed";
     }
 
 
@@ -180,7 +182,8 @@ public class ZhihuContract {
             TableStoryThemeDetail.COLUMN_NAME_EDITORS+" TEXT,"+
             TableStoryThemeDetail.COLUMN_NAME_BACKGROUND+" TEXT,"+
             TableStoryThemeDetail.COLUMN_NAME_IMAGE+" TEXT,"+
-            TableStoryThemeDetail.COLUMN_NAME_IMAGE_SOURCE+" TEXT"+")";
+            TableStoryThemeDetail.COLUMN_NAME_IMAGE_SOURCE+" TEXT,"+
+            TableStoryThemeDetail.COLUMN_NAME_ISSUBCRIBED+" INTEGER"+" )";
 
     public static void createStoryThemeDetailTable(SQLiteDatabase db){
         db.execSQL(SQL_CREATE_STORY_THEME_DETAIL_TABLE);
@@ -214,6 +217,7 @@ public class ZhihuContract {
         public static final String COLUMN_NAME_ISMULTIPIC="ismultipic";
         public static final String COLUMN_NAME_GA_PREFIX="ga_prefix";
         public static final String COLUMN_NAME_TYPE="type";
+        public static final String COLUMN_NAME_DATE="data";
     }
 
     public static final String SQL_CREATE_TOP_STORY_TABLE="CREATE TABLE "+
@@ -221,6 +225,7 @@ public class ZhihuContract {
             " ("+TableTopStory._ID+" INTEGER PRIMARY KEY,"+
             TableTopStory.COLUMN_NAME_STORY_ID+" INTEGER UNIQUE,"+
             TableTopStory.COLUMN_NAME_IMAGE+" TEXT,"+
+            TableTopStory.COLUMN_NAME_DATE+" TEXT,"+
             TableTopStory.COLUMN_NAME_TITLE+" TEXT,"+
             TableTopStory.COLUMN_NAME_ISMULTIPIC+" INTEGER,"+
             TableTopStory.COLUMN_NAME_GA_PREFIX+" INTEGER,"+
@@ -238,5 +243,42 @@ public class ZhihuContract {
         db.execSQL(SQL_DELETE_TOP_STORY_TABLE);
         LogUtils.LOGD(TAG,"delete top story table");
     }
+
+
+    public static abstract class TableStoryExtraInfo implements BaseColumns {
+        public static final String TABLE_NAME = "story_extra_info";
+        public static final String COLUMN_NAME_STORY_ID="story_id";
+        public static final String COLUMN_NAME_NORMAL_COMMENTS="normal_commments";
+        public static final String COLUMN_NAME_POST_REASONS="post_reasons";
+        public static final String COLUMN_NAME_LONG_COMMENTS="long_comments";
+        public static final String COLUMN_NAME_POPULARITY="popularity";
+        public static final String COLUMN_NAME_SHORT_COMMENTS="short_comments";
+        public static final String COLUMN_NAME_COMMENTS="comments";
+    }
+
+    public static final String SQL_CREATE_STORY_EXTRA_INFO_TABLE="CREATE TABLE "+
+            TableStoryExtraInfo.TABLE_NAME+
+            " ("+TableStoryExtraInfo._ID+" INTEGER PRIMARY KEY,"+
+            TableStoryExtraInfo.COLUMN_NAME_STORY_ID+" INTEGER UNIQUE,"+
+            TableStoryExtraInfo.COLUMN_NAME_NORMAL_COMMENTS+" INTEGER,"+
+            TableStoryExtraInfo.COLUMN_NAME_POST_REASONS+" INTEGER,"+
+            TableStoryExtraInfo.COLUMN_NAME_LONG_COMMENTS+" INTEGER,"+
+            TableStoryExtraInfo.COLUMN_NAME_SHORT_COMMENTS+" INTEGER,"+
+            TableStoryExtraInfo.COLUMN_NAME_POPULARITY+" INTEGER,"+
+            TableStoryExtraInfo.COLUMN_NAME_COMMENTS+" INTEGER"+")";
+
+    public static void createStoryExtraInfoTable(SQLiteDatabase db){
+        db.execSQL(SQL_CREATE_STORY_EXTRA_INFO_TABLE);
+        LogUtils.LOGD(TAG,"create story extra info table");
+    }
+
+    public static final String SQL_DELETE_STORY_EXTRA_INFO_TABLE="DROP TABLE IF EXISTS "+TableStoryExtraInfo.TABLE_NAME+";";
+
+    public static void deleteStoryExtraInfoTable(SQLiteDatabase db){
+        db.execSQL(SQL_DELETE_STORY_EXTRA_INFO_TABLE);
+        LogUtils.LOGD(TAG,"delete story extra info table");
+    }
+
+
 
 }

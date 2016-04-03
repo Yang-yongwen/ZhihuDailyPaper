@@ -1,6 +1,4 @@
-package com.yangyongwen.zhihudailypaper.DataStructure;
-
-import java.security.PrivateKey;
+package com.yangyongwen.zhihudailypaper.dataStructure;
 
 /**
  * Created by samsung on 2016/2/3.
