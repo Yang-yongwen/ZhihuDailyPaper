@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/headerbar"
-        android:elevation="5dp"
-        android:outlineProvider="bounds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/toolbar_actionbar"/>
-    </FrameLayout>
+    <!--<FrameLayout-->
+        <!--android:id="@+id/headerbar"-->
+        <!--android:elevation="5dp"-->
+        <!--android:outlineProvider="bounds"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/toolbar_actionbar"/>-->
+    <!--</FrameLayout>-->
 
 
 
@@ -23,113 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <!--<include layout="@layout/toolbar_actionbar"/>-->
+    <include layout="@layout/toolbar_actionbar"/>
 
 
-
-    <!--<com.yangyongwen.zhihudailypaper.ui.StickyLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-        <!--<com.yangyongwen.zhihudailypaper.ui.AspectRatioView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--app:aspectRatio="2.0">-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/story_icon1"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-        <!--<TextView-->
-        <!--android:id="@+id/story_title1"-->
-        <!--android:textSize="20sp"-->
-        <!--android:textColor="#FFFFFF"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:gravity="center|bottom"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:layout_marginBottom="30dp"-->
-        <!--android:layout_height="match_parent" />-->
-        <!--<TextView-->
-        <!--android:id="@+id/story_icon_resource1"-->
-        <!--android:textSize="14sp"-->
-        <!--android:layout_gravity="bottom|right"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
-        <!--</com.yangyongwen.zhihudailypaper.ui.AspectRatioView>-->
-
-
-        <!--<FrameLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-            <!--<WebView-->
-                <!--android:id="@+id/story_detail_web_view1"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-
-
-            <!--</WebView>-->
-
-
-        <!--</FrameLayout>-->
-
-
-
-    <!--</com.yangyongwen.zhihudailypaper.ui.StickyLayout>-->
-
-
-
-
-<!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<WebView-->
-            <!--android:id="@+id/story_detail_web_view1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!-->-->
-        <!--</WebView>-->
-
-        <!--<com.yangyongwen.zhihudailypaper.ui.AspectRatioView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--app:aspectRatio="2.0">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/story_icon1"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent" />-->
-            <!--<TextView-->
-                <!--android:id="@+id/story_title1"-->
-                <!--android:textSize="20sp"-->
-                <!--android:textColor="#FFFFFF"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:gravity="center|bottom"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:layout_marginBottom="30dp"-->
-                <!--android:layout_height="match_parent" />-->
-            <!--<TextView-->
-                <!--android:id="@+id/story_icon_resource1"-->
-                <!--android:textSize="14sp"-->
-                <!--android:layout_gravity="bottom|right"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent" />-->
-
-        <!--</com.yangyongwen.zhihudailypaper.ui.AspectRatioView>-->
-
-
-    <!--</LinearLayout>-->
-
-<!--</ScrollView>-->
-
-
-</LinearLayout>
+</FrameLayout>

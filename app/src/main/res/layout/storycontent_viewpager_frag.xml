@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<com.yangyongwen.zhihudailypaper.ui.ObservableScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/observable_scrollview"
+    android:overScrollMode="never"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+    </RelativeLayout>
 
     <WebView
         android:id="@+id/story_content_webview"
@@ -42,9 +58,8 @@
 
         </com.yangyongwen.zhihudailypaper.ui.AspectRatioView>
 
-
     </WebView>
 
+</LinearLayout>
 
-
-</FrameLayout>
+</com.yangyongwen.zhihudailypaper.ui.ObservableScrollView>

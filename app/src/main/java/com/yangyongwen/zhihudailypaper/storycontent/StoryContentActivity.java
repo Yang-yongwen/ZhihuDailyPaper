@@ -197,7 +197,6 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
         int id=item.getItemId();
         switch (id){
             case R.id.action_share:{
-                onActionBarShowOrHide(true);
 
 //                Intent intent=new Intent(Intent.ACTION_VIEW);
 //                intent.setData(Uri.parse("http://www.baidu.com"));

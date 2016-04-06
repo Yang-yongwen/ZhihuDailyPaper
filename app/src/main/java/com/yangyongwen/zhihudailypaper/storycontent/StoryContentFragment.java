@@ -16,10 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -30,6 +32,7 @@ import com.yangyongwen.zhihudailypaper.dataStructure.StoryDetail;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryExtraInfo;
 import com.yangyongwen.zhihudailypaper.network.NetworkRequest;
 import com.yangyongwen.zhihudailypaper.network.NetworkRequestProxy;
+import com.yangyongwen.zhihudailypaper.ui.ObservableScrollView;
 import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 import java.util.ArrayList;
@@ -42,6 +45,15 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
     private final static String TAG= LogUtils.makeLogTag(StoryContentFragment.class);
     private UserActionListener mUserActionListener;
     private ViewPager mViewPager;
+
+
+
+    private int mActionBarAutoHideSensivity=0;
+    private int mActionBarAutoHideSignal=0;
+    private int mActionBarAutoHideMinY=0;
+    Boolean shown=true;
+
+
 
     private String STORY_DETAIL_STATE="story_detail_state";
 
@@ -73,11 +85,11 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
             @Override
             public void onPageSelected(int position) {
                 LogUtils.LOGD(TAG, "on page selected: page " + position);
-                String storyId = mStoryContentAdapter.getStoryIdList().get(position);
+                final String storyId = mStoryContentAdapter.getStoryIdList().get(position);
 //                if (mStoryContentAdapter.containStoryDetail(storyId)) {
 //                    return;
 //                }
-                Bundle bundle = new Bundle();
+                final Bundle bundle = new Bundle();
                 bundle.putString(StoryContentModel.STORY_ID, storyId);
 
                 if (mStoryContentAdapter.containStoryDetail(storyId)) {
@@ -92,6 +104,44 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                     mPraiseNum.setText("...");
                 }
 
+
+
+                onActionBarShowOrHide(true);
+                shown=true;
+
+
+                getView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        View pageView = mViewPager.findViewWithTag(storyId);
+                        ObservableScrollView scrollView = (ObservableScrollView) pageView.findViewById(R.id.observable_scrollview);
+
+                        final ImageView imageView = (ImageView) pageView.findViewById(R.id.story_icon);
+
+                        imageView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mActionBarAutoHideMinY = imageView.getHeight();
+                            }
+                        });
+
+                        scrollView.setOnScrollChangedCallback(new ObservableScrollView.OnScrollChangedCallback() {
+
+
+                            @Override
+                            public void onScroll(int l, int t, int oldl, int oldt) {
+                                LogUtils.LOGD(TAG, "oldt: " + oldt + " t: " + t);
+                                int deltaY = t - oldt;
+                                onContentScrolled(t, deltaY);
+                            }
+
+                        });
+                    }
+                });
+
+
+
+
             }
 
             @Override
@@ -100,27 +150,27 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
             }
         });
 
-        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
-            @Override
-            public void onDraw() {
-                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
-                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
-                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
-                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
-                }
-            }
-        });
-
-        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
-                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
-                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
-                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
-                }
-            }
-        });
+//        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
+//            @Override
+//            public void onDraw() {
+//                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
+//                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
+//                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
+//                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
+//                }
+//            }
+//        });
+//
+//        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
+//                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
+//                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
+//                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
+//                }
+//            }
+//        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -137,12 +187,108 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 
 
 
-
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+//        int pos=mViewPager.getCurrentItem();
+//
+//        ArrayList<String> ids=mStoryContentAdapter.getStoryIdList();
+//
+//        if(ids==null || ids.size()==0){
+//            return;
+//        }
+//
+//        String storyId=ids.get(pos);
+//
+//        View pageView = mViewPager.findViewWithTag(storyId);
+//        ObservableScrollView scrollView = (ObservableScrollView) pageView.findViewById(R.id.observable_scrollview);
+//
+//        final ImageView imageView = (ImageView) pageView.findViewById(R.id.story_icon);
+//
+//        imageView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mActionBarAutoHideMinY = imageView.getHeight();
+//            }
+//        });
+//
+//        scrollView.setOnScrollChangedCallback(new ObservableScrollView.OnScrollChangedCallback() {
+//
+//
+//            @Override
+//            public void onScroll(int l, int t, int oldl, int oldt) {
+//                LogUtils.LOGD(TAG, "oldt: " + oldt + " t: " + t);
+//                int deltaY = t - oldt;
+//                onContentScrolled(t, deltaY);
+//            }
+//
+//        });
+
+
+    }
+
+
+
+
+    private void onContentScrolled(int currentY,int deltaY){
+
+        if(currentY<mActionBarAutoHideMinY){
+            mActionBar.setTranslationY(0);
+            mActionBar.setAlpha((float)(mActionBarAutoHideMinY-currentY)/mActionBarAutoHideMinY);
+            return;
+        }
+
+        LogUtils.LOGD(TAG,"deltaY: "+deltaY);
+
+        if(deltaY>mActionBarAutoHideSensivity){
+            deltaY=mActionBarAutoHideSensivity;
+        }else if(deltaY<-mActionBarAutoHideSensivity){
+            deltaY=-mActionBarAutoHideSensivity;
+        }
+
+        if(Math.signum(deltaY)*Math.signum(mActionBarAutoHideSignal)<0){
+            mActionBarAutoHideSignal=deltaY;
+        }else {
+            mActionBarAutoHideSignal+=deltaY;
+        }
+
+        LogUtils.LOGD(TAG,"auto hide signal: "+mActionBarAutoHideSignal);
+
+        boolean shouldShow;
+
+        if(currentY<mActionBarAutoHideMinY){
+            shouldShow=true;
+        }else if(mActionBarAutoHideSignal<=-mActionBarAutoHideSensivity){
+            shouldShow=true;
+        }else if(mActionBarAutoHideSignal>=mActionBarAutoHideSensivity){
+            shouldShow=false;
+        }else {
+            return;
+        }
+
+        if(shouldShow==shown){
+            return;
+        }
+        shown=shouldShow;
+        onActionBarShowOrHide(shouldShow);
+    }
+
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
+        mActionBarAutoHideSensivity=getResources().getDimensionPixelSize(R.dimen.action_bar_auto_hide_sensivity);
+        mActionBarAutoHideMinY=getResources().getDimensionPixelSize(R.dimen.action_bar_auto_hide_min_y);
+
+        LogUtils.LOGD(TAG,"sensivity: "+mActionBarAutoHideSensivity);
+
+    }
 
 
 
@@ -216,8 +362,8 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPraiseNum.setText(storyExtraInfo.getPopularity());
-                        mCommentNum.setText(storyExtraInfo.getComments());
+                        mPraiseNum.setText(convert(storyExtraInfo.getPopularity()));
+                        mCommentNum.setText(convert(storyExtraInfo.getComments()));
                     }
                 }, 500);
             }else {
@@ -228,7 +374,7 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
         }else if(query== StoryContentModel.StoryContentQueryEnum.STORYIDLIST){
             mStoryContentAdapter.setStoryIdList(model.getStoryIdList());
             int index=0;
-            String storyId=bundle.getString(StoryContentModel.STORY_ID);
+            final String storyId=bundle.getString(StoryContentModel.STORY_ID);
             ArrayList<String> ids=model.getStoryIdList();
             for(String id:model.getStoryIdList()){
                 if(id.equals(storyId)){
@@ -238,6 +384,67 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
             }
             if(index!=0){
                 mViewPager.setCurrentItem(index,false);
+            }else {
+
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        View pageView = mViewPager.findViewWithTag(storyId);
+//                        ObservableScrollView scrollView = (ObservableScrollView) pageView.findViewById(R.id.observable_scrollview);
+//
+//                        final ImageView imageView = (ImageView) pageView.findViewById(R.id.story_icon);
+//
+//                        imageView.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mActionBarAutoHideMinY = imageView.getHeight();
+//                            }
+//                        });
+//
+//
+//                        scrollView.setOnScrollChangedCallback(new ObservableScrollView.OnScrollChangedCallback() {
+//
+//
+//                            @Override
+//                            public void onScroll(int l, int t, int oldl, int oldt) {
+//                                LogUtils.LOGD(TAG, "oldt: " + oldt + " t: " + t);
+//                                int deltaY = t - oldt;
+//                                onContentScrolled(t, deltaY);
+//                            }
+//
+//                        });
+//                    }
+//                }, 200);
+
+                getView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        View pageView = mViewPager.findViewWithTag(storyId);
+                        ObservableScrollView scrollView = (ObservableScrollView) pageView.findViewById(R.id.observable_scrollview);
+
+                        final ImageView imageView = (ImageView) pageView.findViewById(R.id.story_icon);
+
+                        imageView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mActionBarAutoHideMinY = imageView.getHeight();
+                            }
+                        });
+
+                        scrollView.setOnScrollChangedCallback(new ObservableScrollView.OnScrollChangedCallback() {
+
+
+                            @Override
+                            public void onScroll(int l, int t, int oldl, int oldt) {
+                                LogUtils.LOGD(TAG, "oldt: " + oldt + " t: " + t);
+                                int deltaY = t - oldt;
+                                onContentScrolled(t, deltaY);
+                            }
+
+                        });
+                    }
+                });
+
             }
 
 
@@ -268,6 +475,40 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
     @Override
     public void addListener(UserActionListener listener){
         mUserActionListener=listener;
+    }
+
+
+
+    private void onActionBarShowOrHide(boolean shown){
+        if(shown){
+            ViewCompat.animate(mActionBar).translationY(0).alpha(1).setDuration(300).
+                    setInterpolator(new DecelerateInterpolator()).withLayer();
+
+
+
+
+        }else{
+            ViewCompat.animate(mActionBar).translationY(-mActionBar.getBottom()).alpha(0).setDuration(300).
+                    setInterpolator(new DecelerateInterpolator()).withLayer();
+
+
+//            final int height=mActionBarToolbar.getHeight();
+//            ViewGroup.LayoutParams layoutParams=mActionBarToolbar.getLayoutParams();
+//            ValueAnimator valueAnimator=ValueAnimator.ofInt(1,100);
+//            valueAnimator.setInterpolator(new DecelerateInterpolator());
+//            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//
+//                private IntEvaluator intEvaluator=new IntEvaluator();
+//                @Override
+//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                    int currentValue=(Integer)valueAnimator.getAnimatedValue();
+//                    float fraction=valueAnimator.getAnimatedFraction();
+//                    mActionBarToolbar.getLayoutParams().height=intEvaluator.evaluate(fraction,height,0);
+//                    mActionBarToolbar.requestLayout();
+//                }
+//            });
+//            valueAnimator.setDuration(300).start();
+        }
     }
 
 

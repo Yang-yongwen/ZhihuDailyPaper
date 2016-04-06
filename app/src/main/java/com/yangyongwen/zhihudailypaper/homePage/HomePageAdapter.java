@@ -89,6 +89,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         String date=dailyStories.get(0).getDate();
         mOldestDate=date;
         Story story=new Story();
+        story.setDate(date);
         story.setTitle("date: "+date);
         dailyStories.add(0, story);
         mStories.addAll(dailyStories);
@@ -352,6 +353,23 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean isStoryDateTitle(int position){
         return mStories.get(position-1).getTitle().contains("date")?true:false;
     }
+
+
+    public String getToday(){
+        return mTopStories.get(0).getDate();
+    }
+
+
+    public String getDateByPosition(int pos){
+        String s=null;
+        if(pos==0){
+            s=mTopStories.get(0).getDate();
+        }else{
+            s=mStories.get(pos-1).getDate();
+        }
+        return s;
+    }
+
 
 
 }

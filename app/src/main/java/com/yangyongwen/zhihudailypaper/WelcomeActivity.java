@@ -50,7 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onGlobalLayout() {
 
                 ScaleAnimation scaleAnimation=new ScaleAnimation(1,1.2f,1,1.2f,mImageView.getWidth()/2,mImageView.getHeight()/2);
-                scaleAnimation.setDuration(3000);
+                scaleAnimation.setDuration(30);
                 scaleAnimation.setFillAfter(true);
 
                 scaleAnimation.setAnimationListener(new Animation.AnimationListener() {

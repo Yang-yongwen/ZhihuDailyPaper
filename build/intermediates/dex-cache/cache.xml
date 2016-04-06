@@ -2,95 +2,95 @@
 <items version="2" >
 
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/gson-2.2.4.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/gson-2.2.4.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/gson-2.2.4-0bca293d9bf614231ce6589aa968d1dc92c9b2e5.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/gson-2.2.4-b8cae83a0ece8567f9db617c19d8305415f0f926.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/volleylib.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/volleylib-e21e515fc0ae5eae4e10fa8108a779bd725b99e2.jar" />
+        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/classes-e3881bc000edde494f840bf56bb81ae997c64693.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/classes-94d13b412399ecdc9823aad027f5e62f69caa35a.jar" />
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-d7c8a0879fde9f79fd8f39322d6ee32198c3b5b9.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/picasso-2.5.2.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e0b0c35d02308b270015a74cada4887e2e49b889">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/classes-5676308013affa915fdc9d19e6bb50169fe79a35.jar" />
+    </item>
+    <item
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/picasso-2.5.2.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-dbe26f733d53fa3aa2a2a23e8823db77e4335eb0.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-0d796a9934b59965fde59a3d03b96156bfa85b10.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/roundedimageview-2.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="814fc0c3ec69a944add398217d90077301501a74">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/classes-c556778b7102b47dc9b82d0793db1ac6fba28e2a.jar" />
-    </item>
-    <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/eventbus-3.0.0.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/eventbus-3.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0-0c7e9ea5d61da0f9995c734cda334bc398db8ae5.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0-97cefd87b882a644146032d4ee7b77f96e94b421.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/junit-4.12.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/universal-image-loader-1.9.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e33324b770223932d467e4ec39639b0c15f3b94e">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/universal-image-loader-1.9.2-afa8989cf16be304cd07dfeca8cec068aa5ba013.jar" />
+    </item>
+    <item
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/junit-4.12.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="2973d150c0dc1fefe998f834810d68f278ea58ec">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/junit-4.12-6f13cea29dc54e5d3e8d2ddac0bb6d24bd77c221.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/junit-4.12-0f4e3f179c56389b3b15e7962665942c4c1818e4.jar" />
+    </item>
+    <item
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/roundedimageview_2.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="814fc0c3ec69a944add398217d90077301501a74">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/roundedimageview_2.2.1-f6899a6fed5b9dbc287aa08523d3dc152e03bf86.jar" />
+    </item>
+    <item
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/classes-24c84eebf72cec27e4f3b672b050aa0c94e9e9e9.jar" />
     </item>
     <item
         jar="/Users/yangyongwen/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-26de4cef9435a3dc03474cbff1ebe8f823088ccd.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-26de4cef9435a3dc03474cbff1ebe8f823088ccd.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars/classes.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/libs/volleylib.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/classes-9a3539784a5368a1f19f529c792f8e0493087e37.jar" />
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/volleylib-89d69dc96428d535fefdb17c917932208392a939.jar" />
     </item>
     <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/libs/universal-image-loader-1.9.2.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e33324b770223932d467e4ec39639b0c15f3b94e">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/universal-image-loader-1.9.2-576eb2cf2b8d73b5fe298e2a55deff19b40022c1.jar" />
-    </item>
-    <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e0b0c35d02308b270015a74cada4887e2e49b889">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/classes-b17382ccfe1ae643031bca271913a88dd75774d1.jar" />
-    </item>
-    <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.1.1/jars/classes.jar"
+        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.1.1/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="22886d910315028a2b34b1ba068c265534ade87a">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/classes-6c43e6d5a6035e6f2c6a07bcbd031afad18d150a.jar" />
-    </item>
-    <item
-        jar="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.1/ZhihuDailyPaper/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-f2eb41c692da43346c817d3e78e7151422bf5ef6.jar" />
+        <dex dex="/Users/yangyongwen/AndroidStudioProjects/Zhihu2.0/4.6/ZhihuDailyPaper-master/app/build/intermediates/pre-dexed/debug/classes-38c878714e17c8f93fc57b5903f1620b0c463df4.jar" />
     </item>
 
 </items>

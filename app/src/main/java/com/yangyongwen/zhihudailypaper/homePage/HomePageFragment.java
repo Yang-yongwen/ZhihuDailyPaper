@@ -91,6 +91,32 @@ public class HomePageFragment extends Fragment implements UpdatableView<HomePage
 
                 }
 
+                int pos=mLinearLayoutManager.findFirstVisibleItemPosition();
+
+
+
+                if(pos==0){
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("首页");
+                }else {
+                    String today=mHomePageAdapter.getToday();
+                    String date1=mHomePageAdapter.getDateByPosition(pos);
+
+                    String title=null;
+
+                    if(date1.equals(today)){
+                        title=new String("今日热闻");
+                    }else{
+                        String s1=date1.substring(4,6);
+                        String s2=date1.substring(6,8);
+                        title=s1+"月"+s2+"日 "+DateUtils.convertDay(date1);
+                    }
+
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+
+
+
+                }
+
             }
         });
 
