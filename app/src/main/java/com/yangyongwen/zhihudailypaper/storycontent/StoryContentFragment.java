@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -23,6 +24,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yangyongwen.zhihudailypaper.R;
@@ -32,6 +34,7 @@ import com.yangyongwen.zhihudailypaper.dataStructure.StoryDetail;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryExtraInfo;
 import com.yangyongwen.zhihudailypaper.network.NetworkRequest;
 import com.yangyongwen.zhihudailypaper.network.NetworkRequestProxy;
+import com.yangyongwen.zhihudailypaper.photoviewer.PhotoViewActivity;
 import com.yangyongwen.zhihudailypaper.ui.ObservableScrollView;
 import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
@@ -43,6 +46,8 @@ import java.util.ArrayList;
 public class StoryContentFragment extends Fragment implements UpdatableView<StoryContentModel>{
 
     private final static String TAG= LogUtils.makeLogTag(StoryContentFragment.class);
+    private static final String PHOTO_URL="photo_url";
+
     private UserActionListener mUserActionListener;
     private ViewPager mViewPager;
 
@@ -286,7 +291,7 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
         mActionBarAutoHideSensivity=getResources().getDimensionPixelSize(R.dimen.action_bar_auto_hide_sensivity);
         mActionBarAutoHideMinY=getResources().getDimensionPixelSize(R.dimen.action_bar_auto_hide_min_y);
 
-        LogUtils.LOGD(TAG,"sensivity: "+mActionBarAutoHideSensivity);
+        LogUtils.LOGD(TAG, "sensivity: " + mActionBarAutoHideSensivity);
 
     }
 
@@ -337,7 +342,7 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                 WebView webView = (WebView) rootView.findViewById(R.id.story_content_webview);
                 WebSettings webSettings = webView.getSettings();
                 webSettings.setJavaScriptEnabled(true);
-                webView.setWebViewClient(new WebViewClient(){
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //                        if (Uri.parse(url).getHost().equals("www.example.com")) {
@@ -350,6 +355,23 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                         return true;
                     }
                 });
+
+                webView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        WebView.HitTestResult hr = ((WebView) view).getHitTestResult();
+
+                        if (hr.getType() == WebView.HitTestResult.IMAGE_TYPE && motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                            Intent intent=new Intent(getActivity(), PhotoViewActivity.class);
+                            intent.putExtra(PHOTO_URL,hr.getExtra());
+                            startActivity(intent);
+                        }
+                        LogUtils.LOGD(TAG, "getExtra = " + hr.getExtra() + "\t\t type = " + hr.getType());
+                        return false;
+                    }
+                });
+
+
                 StoryContentAdapter.StoryContentVPFragment.setWebView(webView, body);
             }
 
@@ -510,6 +532,35 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 //            valueAnimator.setDuration(300).start();
         }
     }
+
+
+    private String[] getImageUrlFromBody(String body){
+
+        ArrayList<String> reuslt=new ArrayList<String>();
+
+        int start=0;
+
+        int index= body.indexOf("content-image",start);
+
+        int srcIndex=0;
+        int indexUrlBeg;
+        int indexUrlEnd;
+
+        while(index!=-1){
+            start=index+1;
+            srcIndex=body.indexOf("src",start);
+            indexUrlBeg=body.indexOf("\"",srcIndex)+1;
+            indexUrlEnd=body.indexOf("\"",indexUrlBeg);
+            reuslt.add(body.substring(indexUrlBeg,indexUrlEnd));
+            index=body.indexOf("content-image",start);
+        }
+
+        return reuslt.toArray(new String[reuslt.size()]);
+    }
+
+
+
+
 
 
     private String convert(int i){

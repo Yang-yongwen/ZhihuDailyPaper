@@ -40,10 +40,12 @@
 
         <provider
             android:name=".provider.ZhihuContentProvider"
-            android:authorities="com.yangyongwen.zhihudailypaper.provider"></provider>
+            android:authorities="com.yangyongwen.zhihudailypaper.provider" />
 
-        <activity android:name=".setting.SettingActivity"></activity>
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".photoviewer.PhotoViewActivity"
+            android:theme="@style/Zhihu_photoview"></activity>
     </application>
 
 </manifest>

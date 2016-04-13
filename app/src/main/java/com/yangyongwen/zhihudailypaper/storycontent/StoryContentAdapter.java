@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -15,12 +16,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yangyongwen.zhihudailypaper.R;
 import com.yangyongwen.zhihudailypaper.dataStructure.MapList;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryDetail;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryExtraInfo;
+import com.yangyongwen.zhihudailypaper.photoviewer.PhotoViewActivity;
 import com.yangyongwen.zhihudailypaper.utils.LogUtils;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class StoryContentAdapter extends FragmentStatePagerAdapter {
     public final static String BODY="story_content_body";
     public final static String IMAGE_RESOURCE="image_res";
     public final static String FRAGMENT_TAG="fragment_tag";
+    private static final String PHOTO_URL="photo_url";
 
     private HashMap<String,StoryDetail> mStoryDetailList;
     private Context mContext=null;
@@ -166,7 +170,7 @@ public class StoryContentAdapter extends FragmentStatePagerAdapter {
                 WebView webView = (WebView) rootView.findViewById(R.id.story_content_webview);
                 WebSettings webSettings = webView.getSettings();
                 webSettings.setJavaScriptEnabled(true);
-                webView.setWebViewClient(new WebViewClient(){
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //                        if (Uri.parse(url).getHost().equals("www.example.com")) {
@@ -179,6 +183,22 @@ public class StoryContentAdapter extends FragmentStatePagerAdapter {
                         return true;
                     }
                 });
+
+                webView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        WebView.HitTestResult hr = ((WebView) view).getHitTestResult();
+
+                        if (hr.getType() == WebView.HitTestResult.IMAGE_TYPE && motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                            Intent intent=new Intent(getActivity(), PhotoViewActivity.class);
+                            intent.putExtra(PHOTO_URL,hr.getExtra());
+                            startActivity(intent);
+                        }
+                        LogUtils.LOGD(TAG, "getExtra = " + hr.getExtra() + "\t\t type = " + hr.getType());
+                        return false;
+                    }
+                });
+
                 setWebView(webView, body);
 
 
