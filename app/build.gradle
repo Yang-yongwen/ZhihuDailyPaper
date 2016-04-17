@@ -35,6 +35,7 @@ dependencies {
 
 dependencies {
     compile(name: 'roundedimageview-2.2.1', ext: 'aar')
+    compile(name: 'expandableTextView-0.1.4', ext: 'aar')
 }
 dependencies {
     compile 'com.android.support:support-v4:22.+'

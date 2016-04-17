@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yangyongwen.zhihudailypaper.R;
+import com.yangyongwen.zhihudailypaper.comment.CommentActivity;
 import com.yangyongwen.zhihudailypaper.common.QueryEnum;
 import com.yangyongwen.zhihudailypaper.common.UpdatableView;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryDetail;
@@ -37,6 +38,10 @@ import com.yangyongwen.zhihudailypaper.network.NetworkRequestProxy;
 import com.yangyongwen.zhihudailypaper.photoviewer.PhotoViewActivity;
 import com.yangyongwen.zhihudailypaper.ui.ObservableScrollView;
 import com.yangyongwen.zhihudailypaper.utils.LogUtils;
+import com.yangyongwen.zhihudailypaper.utils.Message;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -47,11 +52,16 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 
     private final static String TAG= LogUtils.makeLogTag(StoryContentFragment.class);
     private static final String PHOTO_URL="photo_url";
+    private static final String SHORT_COMMENT_NUM="short_comment_num";
+    private static final String LONG_COMMENT_NUM="long_comment_num";
+    private static final String STORY_ID="story_id";
 
     private UserActionListener mUserActionListener;
     private ViewPager mViewPager;
 
 
+    private int mLongCommentNum;
+    private int mShortCommentNum;
 
     private int mActionBarAutoHideSensivity=0;
     private int mActionBarAutoHideSignal=0;
@@ -64,10 +74,18 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 
     private StoryContentAdapter mStoryContentAdapter;
 
-    Toolbar mActionBar;
+    private Toolbar mActionBar;
 
-    TextView mPraiseNum;
-    TextView mCommentNum;
+    private TextView mPraiseNumTextView;
+    private TextView mCommentNumTextView;
+
+    private int mPriseNum=0;
+    private int mCommentNum=0;
+
+    private boolean alreadyLoadContent=false;
+    private boolean alreadyLoadExtraInfo=false;
+
+
 
 
     @Override
@@ -96,17 +114,21 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 //                }
                 final Bundle bundle = new Bundle();
                 bundle.putString(StoryContentModel.STORY_ID, storyId);
-
+                mPriseNum=0;
+                mCommentNum=0;
+                alreadyLoadContent=false;
+                alreadyLoadExtraInfo=false;
                 if (mStoryContentAdapter.containStoryDetail(storyId)) {
+                    alreadyLoadContent=true;
                     bundle.putString(STORY_DETAIL_STATE, "exist");
                 }
 
 
                 mUserActionListener.onUserAction(StoryContentModel.StoryContentActionEnum.PAGECHANGE, bundle);
 
-                if (mCommentNum != null && mPraiseNum != null) {
-                    mCommentNum.setText("...");
-                    mPraiseNum.setText("...");
+                if (mCommentNumTextView != null && mPraiseNumTextView != null) {
+                    mCommentNumTextView.setText("...");
+                    mPraiseNumTextView.setText("...");
                 }
 
 
@@ -145,8 +167,6 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                 });
 
 
-
-
             }
 
             @Override
@@ -155,37 +175,15 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
             }
         });
 
-//        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
-//            @Override
-//            public void onDraw() {
-//                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
-//                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
-//                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
-//                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
-//                }
-//            }
-//        });
-//
-//        getActivity().getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
-//                    mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
-//                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
-//                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
-//                }
-//            }
-//        });
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mActionBar == null || mPraiseNum == null || mPraiseNum == null) {
+                if (mActionBar == null || mPraiseNumTextView == null || mPraiseNumTextView == null) {
                     mActionBar = (Toolbar) getActivity().findViewById(R.id.toolbar_actionbar);
-                    mPraiseNum = (TextView) mActionBar.findViewById(R.id.praise_num);
-                    mCommentNum = (TextView) mActionBar.findViewById(R.id.comment_num);
-                    mCommentNum.setText("...");
-                    mPraiseNum.setText("...");
+                    mPraiseNumTextView = (TextView) mActionBar.findViewById(R.id.praise_num);
+                    mCommentNumTextView = (TextView) mActionBar.findViewById(R.id.comment_num);
+                    mCommentNumTextView.setText("...");
+                    mPraiseNumTextView.setText("...");
                 }
             }
         }, 500);
@@ -296,6 +294,34 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
     }
 
 
+    @Subscribe
+    public void onStartCommActMsg(Message.StartCommActMsg event){
+        LogUtils.LOGD(TAG,event.message);
+        if(!alreadyLoadContent||!alreadyLoadExtraInfo){
+            return;
+        }
+        String id=mStoryContentAdapter.getStoryIdByIndex(mViewPager.getCurrentItem());
+        Intent intent=new Intent(getActivity(), CommentActivity.class);
+        intent.putExtra(STORY_ID,id);
+        intent.putExtra(SHORT_COMMENT_NUM,mShortCommentNum);
+        intent.putExtra(LONG_COMMENT_NUM,mLongCommentNum);
+        startActivity(intent);
+    }
+
+
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
+    }
+
 
 
     @Override
@@ -374,25 +400,29 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
 
                 StoryContentAdapter.StoryContentVPFragment.setWebView(webView, body);
             }
-
+            alreadyLoadContent=true;
 //            mStoryContentAdapter.notifyDataSetChanged();
         }else if(query== StoryContentModel.StoryContentQueryEnum.STORYEXTRAINFO){
             final String storyId=bundle.getString(StoryContentModel.STORY_ID);
             final StoryExtraInfo storyExtraInfo=model.getStoryExtraInfo(storyId);
 
-            if(mPraiseNum==null||mCommentNum==null){
+            if(mPraiseNumTextView==null||mCommentNumTextView==null){
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPraiseNum.setText(convert(storyExtraInfo.getPopularity()));
-                        mCommentNum.setText(convert(storyExtraInfo.getComments()));
+                        mPraiseNumTextView.setText(convert(storyExtraInfo.getPopularity()));
+                        mCommentNumTextView.setText(convert(storyExtraInfo.getComments()));
                     }
                 }, 500);
             }else {
-                mPraiseNum.setText(convert(storyExtraInfo.getPopularity()));
-                mCommentNum.setText(convert(storyExtraInfo.getComments()));
+                mPraiseNumTextView.setText(convert(storyExtraInfo.getPopularity()));
+                mCommentNumTextView.setText(convert(storyExtraInfo.getComments()));
             }
-
+            mPriseNum=storyExtraInfo.getPopularity();
+            mCommentNum=storyExtraInfo.getComments();
+            mLongCommentNum=storyExtraInfo.getLong_comments();
+            mShortCommentNum=storyExtraInfo.getShort_comments();
+            alreadyLoadExtraInfo=true;
         }else if(query== StoryContentModel.StoryContentQueryEnum.STORYIDLIST){
             mStoryContentAdapter.setStoryIdList(model.getStoryIdList());
             int index=0;
@@ -407,37 +437,6 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
             if(index!=0){
                 mViewPager.setCurrentItem(index,false);
             }else {
-
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        View pageView = mViewPager.findViewWithTag(storyId);
-//                        ObservableScrollView scrollView = (ObservableScrollView) pageView.findViewById(R.id.observable_scrollview);
-//
-//                        final ImageView imageView = (ImageView) pageView.findViewById(R.id.story_icon);
-//
-//                        imageView.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                mActionBarAutoHideMinY = imageView.getHeight();
-//                            }
-//                        });
-//
-//
-//                        scrollView.setOnScrollChangedCallback(new ObservableScrollView.OnScrollChangedCallback() {
-//
-//
-//                            @Override
-//                            public void onScroll(int l, int t, int oldl, int oldt) {
-//                                LogUtils.LOGD(TAG, "oldt: " + oldt + " t: " + t);
-//                                int deltaY = t - oldt;
-//                                onContentScrolled(t, deltaY);
-//                            }
-//
-//                        });
-//                    }
-//                }, 200);
-
                 getView().post(new Runnable() {
                     @Override
                     public void run() {
@@ -468,7 +467,6 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
                 });
 
             }
-
 
             /*
             * 当点击第一项和最后一项进入viewpager时,切换viewpager会发生闪烁...原因不明.
@@ -505,31 +503,9 @@ public class StoryContentFragment extends Fragment implements UpdatableView<Stor
         if(shown){
             ViewCompat.animate(mActionBar).translationY(0).alpha(1).setDuration(300).
                     setInterpolator(new DecelerateInterpolator()).withLayer();
-
-
-
-
         }else{
             ViewCompat.animate(mActionBar).translationY(-mActionBar.getBottom()).alpha(0).setDuration(300).
                     setInterpolator(new DecelerateInterpolator()).withLayer();
-
-
-//            final int height=mActionBarToolbar.getHeight();
-//            ViewGroup.LayoutParams layoutParams=mActionBarToolbar.getLayoutParams();
-//            ValueAnimator valueAnimator=ValueAnimator.ofInt(1,100);
-//            valueAnimator.setInterpolator(new DecelerateInterpolator());
-//            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//
-//                private IntEvaluator intEvaluator=new IntEvaluator();
-//                @Override
-//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                    int currentValue=(Integer)valueAnimator.getAnimatedValue();
-//                    float fraction=valueAnimator.getAnimatedFraction();
-//                    mActionBarToolbar.getLayoutParams().height=intEvaluator.evaluate(fraction,height,0);
-//                    mActionBarToolbar.requestLayout();
-//                }
-//            });
-//            valueAnimator.setDuration(300).start();
         }
     }
 

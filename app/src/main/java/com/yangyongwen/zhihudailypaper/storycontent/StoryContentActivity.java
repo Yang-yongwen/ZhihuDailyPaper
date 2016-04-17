@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yangyongwen.zhihudailypaper.R;
+import com.yangyongwen.zhihudailypaper.comment.CommentActivity;
 import com.yangyongwen.zhihudailypaper.common.Model;
 import com.yangyongwen.zhihudailypaper.common.QueryEnum;
 import com.yangyongwen.zhihudailypaper.common.UpdatableView;
@@ -37,25 +38,26 @@ import com.yangyongwen.zhihudailypaper.homePage.HomePageAdapter;
 import com.yangyongwen.zhihudailypaper.homePage.HomePagePresenter;
 import com.yangyongwen.zhihudailypaper.login.LoginActivity;
 import com.yangyongwen.zhihudailypaper.utils.LogUtils;
+import com.yangyongwen.zhihudailypaper.utils.Message;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
 /**
  * Created by samsung on 2016/3/15.
  */
-public class StoryContentActivity extends AppCompatActivity implements Model.ModelUpdatedListener{
+public class StoryContentActivity extends AppCompatActivity {
 
     private static final String TAG= LogUtils.makeLogTag(StoryContentActivity.class);
+
 
     private static final String PRESENTER_TAG="fragment_tag";
 
     private Toolbar mActionBarToolbar;
 
-    private ViewPager mViewPager;
     StoryContentModel storyContentModel;
-    private String mStoryId;
 
-    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,74 +81,14 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
         Intent intent=getIntent();
 
         ArrayList<String> ids=intent.getStringArrayListExtra(HomePageAdapter.STORY_ID);
-        StoryContentAdapter storyContentAdapter=new StoryContentAdapter(getSupportFragmentManager());
-        storyContentAdapter.setStoryIdList(ids);
-        storyContentAdapter.setCurrentId(intent.getStringExtra(HomePageAdapter.CURRENT_ID));
-//
-//
-//        mViewPager=(ViewPager)findViewById(R.id.storycontent_viewpager);
-//        mViewPager.setAdapter(storyContentAdapter);
-//        mViewPager.setCurrentItem(storyContentAdapter.getCurrentItem());
 
         String id=intent.getStringExtra(HomePageAdapter.CURRENT_ID);
-        mStoryId=id;
-        storyContentModel=new StoryContentModel(getApplicationContext(),ids,id);
 
-//        storyContentModel.setModelUpdateListener(this);
-//        Bundle bundle=new Bundle();
-//        bundle.putString("story_id",id);
-//        storyContentModel.requestModelUpdate(StoryContentModel.StoryContentActionEnum.INIT, bundle, null);
+        storyContentModel=new StoryContentModel(getApplicationContext(),ids,id);
 
         addPresenterFragment(R.id.storycontent_frag,storyContentModel,null,null);
 
     }
-
-    public void onModelUpdateSuccess(QueryEnum queryEnum,Bundle bundle){
-
-
-        final StoryDetail storyDetail=storyContentModel.getStoryDetail(mStoryId);
-
-        final Context context=this;
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-//                TextView textView1=(TextView) findViewById(R.id.story_title1);
-//                textView1.setText(storyDetail.getTitle());
-//
-//                TextView textView2=(TextView) findViewById(R.id.story_icon_resource1);
-//                textView2.setText(storyDetail.getImage_source());
-//
-//                ImageView imageView = (ImageView) findViewById(R.id.story_icon1);
-//                Picasso.with(context).load(storyDetail.getImage()).into(imageView);
-//
-//                WebView webView = (WebView) findViewById(R.id.story_detail_web_view1);
-//                WebSettings webSettings = webView.getSettings();
-//                webSettings.setJavaScriptEnabled(true);
-//                webView.setWebViewClient(new WebViewClient());
-//                setWebView(webView, storyDetail.getBody());
-
-
-
-            }
-        });
-
-    }
-
-    private void setWebView(WebView webView,String body){
-        StringBuilder sb=new StringBuilder();
-        sb.append("<HTML><HEAD><LINK href=\"style.css\" type=\"text/css\" rel=\"stylesheet\"/></HEAD><body>");
-        sb.append(body);
-        sb.append("</body></HTML>");
-        webView.loadDataWithBaseURL("file:///android_asset/", sb.toString(), "text/html", "utf-8", null);
-    }
-
-    public void onModelUpdateError(QueryEnum queryEnum){
-        StoryDetail storyDetail=storyContentModel.getStoryDetail(mStoryId);
-        int i;
-    }
-
-
-
 
 
     public StoryContentPresenter addPresenterFragment(int updatableViewResId, Model model, QueryEnum[] queries,
@@ -184,6 +126,19 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_storycontent, menu);
+
+        for(int i=0;i<menu.size();++i){
+            final MenuItem item=menu.getItem(i);
+            if(item.getItemId()==R.id.action_comment||item.getItemId()==R.id.action_praise){
+                item.getActionView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onOptionsItemSelected(item);
+                    }
+                });
+            }
+        }
+
         return true;
     }
 
@@ -211,7 +166,7 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
                 break;
             }
             case R.id.action_comment:{
-
+                EventBus.getDefault().post(new Message.StartCommActMsg("start comment activity"));
                 break;
             }
             case R.id.action_praise:{
@@ -227,19 +182,19 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
 
 
 
-    private void onActionBarShowOrHide(boolean shown){
-        if(shown){
-            ViewCompat.animate(mActionBarToolbar).translationY(0).alpha(1).setDuration(300).
-                    setInterpolator(new DecelerateInterpolator()).withLayer();
-
-
-
-
-        }else{
-            ViewCompat.animate(mActionBarToolbar).translationY(-mActionBarToolbar.getBottom()).alpha(0).setDuration(300).
-                    setInterpolator(new DecelerateInterpolator()).withLayer();
-
-
+//    private void onActionBarShowOrHide(boolean shown){
+//        if(shown){
+//            ViewCompat.animate(mActionBarToolbar).translationY(0).alpha(1).setDuration(300).
+//                    setInterpolator(new DecelerateInterpolator()).withLayer();
+//
+//
+//
+//
+//        }else{
+//            ViewCompat.animate(mActionBarToolbar).translationY(-mActionBarToolbar.getBottom()).alpha(0).setDuration(300).
+//                    setInterpolator(new DecelerateInterpolator()).withLayer();
+//
+//
 //            final int height=mActionBarToolbar.getHeight();
 //            ViewGroup.LayoutParams layoutParams=mActionBarToolbar.getLayoutParams();
 //            ValueAnimator valueAnimator=ValueAnimator.ofInt(1,100);
@@ -256,8 +211,8 @@ public class StoryContentActivity extends AppCompatActivity implements Model.Mod
 //                }
 //            });
 //            valueAnimator.setDuration(300).start();
-        }
-    }
+//        }
+//    }
 
 
 

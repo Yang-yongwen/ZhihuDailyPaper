@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.yangyongwen.zhihudailypaper.comment.CommentActivity;
 import com.yangyongwen.zhihudailypaper.homePage.HomePageActivity;
 import com.yangyongwen.zhihudailypaper.homePage.HomePageModel;
 import com.yangyongwen.zhihudailypaper.network.NetworkRequestProxy;
@@ -47,6 +48,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static final String SPLASH_URL="http://news-at.zhihu.com/api/4/start-image/1080*1776";
 
+
+    private static final String SHORT_COMMENT_NUM="short_comment_num";
+    private static final String LONG_COMMENT_NUM="long_comment_num";
+    private static final String STORY_ID="story_id";
 
     private ImageView mImageView;
     private Context mContext;
@@ -92,6 +97,13 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent intent = new Intent(mContext, HomePageActivity.class);
+
+//                        Intent intent = new Intent(mContext, CommentActivity.class);
+//                        intent.putExtra(STORY_ID,"8131815");
+//                        intent.putExtra(SHORT_COMMENT_NUM,1);
+//                        intent.putExtra(LONG_COMMENT_NUM,2);
+
+
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         new Handler().postDelayed(new Runnable() {

@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.yangyongwen.zhihudailypaper.R;
-import com.yangyongwen.zhihudailypaper.dataStructure.MapList;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryDetail;
 import com.yangyongwen.zhihudailypaper.dataStructure.StoryExtraInfo;
 import com.yangyongwen.zhihudailypaper.photoviewer.PhotoViewActivity;
@@ -48,34 +47,21 @@ public class StoryContentAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<String> mStroyIdList;
 
-    private String mCurrentId;
-
 
     public void setStoryIdList(ArrayList<String > ids){
         mStroyIdList=ids;
         this.notifyDataSetChanged();
     }
 
+
+    public String getStoryIdByIndex(int i){
+        return mStroyIdList.get(i);
+    }
+
+
     public ArrayList<String> getStoryIdList(){
         return mStroyIdList;
     }
-
-    public void setCurrentId(String id){
-        mCurrentId=id;
-    }
-
-    public int getCurrentItem(){
-        int index=0;
-        for(String id:mStroyIdList){
-            if(id==mCurrentId){
-                return index;
-            }
-            index++;
-        }
-        return -1;
-    }
-
-
 
 
 

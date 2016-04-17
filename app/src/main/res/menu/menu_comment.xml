@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".comment.CommentActivity">
+
+    <item android:id="@+id/action_write_comment"
+        android:title="comment"
+        android:icon="@drawable/comment_write"
+        app:showAsAction="always"/>
+
+</menu>

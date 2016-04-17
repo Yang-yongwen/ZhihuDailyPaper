@@ -32,7 +32,14 @@ public class HomePagePresenter extends Fragment implements Presenter, UpdatableV
     public void onAttach(Activity  activity){
         super.onAttach(activity);
         mHandler=new MainThreadHandler(activity.getMainLooper());
-        this.onUserAction(HomePageModel.HomePageActionEnum.INIT,null);
+//        this.onUserAction(HomePageModel.HomePageActionEnum.INIT,null);
+        activity.getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                onUserAction(HomePageModel.HomePageActionEnum.INIT,null);
+            }
+        });
+
     }
 
 

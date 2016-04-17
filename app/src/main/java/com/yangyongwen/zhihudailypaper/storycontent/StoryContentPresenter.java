@@ -37,9 +37,16 @@ public class StoryContentPresenter extends Fragment implements Presenter, Updata
     public void onAttach(Activity activity){
         super.onAttach(activity);
         mHandler=new MainThreadHandler(activity.getMainLooper());
-        Bundle bundle=new Bundle();
+        final Bundle bundle=new Bundle();
         bundle.putString(StoryContentModel.STORY_ID,((StoryContentModel)mModel).getStoryCurrentId());
-        this.onUserAction(StoryContentModel.StoryContentActionEnum.INIT,bundle);
+//        this.onUserAction(StoryContentModel.StoryContentActionEnum.INIT, bundle);
+
+        activity.getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                onUserAction(StoryContentModel.StoryContentActionEnum.INIT, bundle);
+            }
+        });
     }
 
 

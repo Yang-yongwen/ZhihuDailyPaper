@@ -44,8 +44,10 @@
 
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".login.LoginActivity" />
-        <activity android:name=".photoviewer.PhotoViewActivity"
-            android:theme="@style/Zhihu_photoview"></activity>
+        <activity
+            android:name=".photoviewer.PhotoViewActivity"
+            android:theme="@style/Zhihu_photoview" />
+        <activity android:name=".comment.CommentActivity"></activity>
     </application>
 
 </manifest>

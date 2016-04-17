@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:overScrollMode="always"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/zantong"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:text="赞同"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:textColor="#a0a0a0"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/jubao"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:text="举报"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textColor="#a0a0a0"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/fuzhi"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:text="复制"
+                    android:textSize="20sp"
+                    android:textColor="#a0a0a0"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/huifu"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:text="回复"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textColor="#a0a0a0"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </ScrollView>
+
+
